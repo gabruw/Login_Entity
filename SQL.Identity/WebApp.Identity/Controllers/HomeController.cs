@@ -109,6 +109,7 @@ namespace WebApp.Identity.Controllers
                 if(user != null)
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
                     var resetUrl = Url.Action("ResetPassword", "Home", 
                         new {
                             token = token,
@@ -117,13 +118,23 @@ namespace WebApp.Identity.Controllers
 
                     System.IO.File.WriteAllText("resetLink.txt", resetUrl);
                 }
+                else
+                {
+                    ModelState.AddModelError("", "E-mail inválido!");
+                }
             }
+
+            return View();
         }
 
         [HttpGet]
-        public IActionResult ResetPassword()
+        public IActionResult ResetPassword(string token, string email)
         {
-            return View();
+            var resetPassword = new ResetPassword();
+            resetPassword.Token = token;
+            resetPassword.Email = email;
+
+            return View(resetPassword);
         }
 
         [HttpPost]
@@ -131,8 +142,29 @@ namespace WebApp.Identity.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
+                if(user != null)
+                {
+                    var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                    if (!result.Succeeded)
+                    {
+                        foreach(var erro in result.Errors)
+                        {
+                            ModelState.AddModelError("", erro.Description);
+                        }
+
+                        return View();
+                    }
+
+                    return View("Success");
+                }
+
+                ModelState.AddModelError("", "Invalid Request");
             }
+
+            return View();
         }
 
         [HttpGet]
