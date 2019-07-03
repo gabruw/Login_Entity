@@ -49,7 +49,25 @@ namespace WebApp.Identity
             services.AddDbContext<MyUserDbContext>(options => options.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationAssembly)));
 
             // Adiciona o Identity
-            services.AddIdentity<MyUser, IdentityRole>(options => { }).AddEntityFrameworkStores<MyUserDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<MyUser, IdentityRole>(options => 
+            {
+                // Confirmar e-mail login
+                options.SignIn.RequireConfirmedEmail = true;
+
+                // Burocracia da senha
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+
+                // Segurança
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
+            }).AddEntityFrameworkStores<MyUserDbContext>()
+            .AddDefaultTokenProviders()
+            .AddPasswordValidator<DoesNotContainPasswordValidator<MyUser>>();
 
             // Tempo de validação do Token [3 horas]
             services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(3));
