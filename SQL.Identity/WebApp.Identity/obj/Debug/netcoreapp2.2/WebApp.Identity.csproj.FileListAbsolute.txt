@@ -119,3 +119,5 @@ C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.I
 C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.Identity\obj\Debug\netcoreapp2.2\WebApp.Identity.dll
 C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.Identity\obj\Debug\netcoreapp2.2\WebApp.Identity.pdb
 C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.Identity\obj\Debug\netcoreapp2.2\WebApp.Identity.csproj.CopyComplete
+C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.Identity\obj\Debug\netcoreapp2.2\Razor\Views\Home\ForgotPassword.g.cshtml.cs
+C:\Users\SHU Aeronáutica 01\Documents\GitHub\Login_Entity\SQL.Identity\WebApp.Identity\obj\Debug\netcoreapp2.2\Razor\Views\Home\ResetPassword.g.cshtml.cs

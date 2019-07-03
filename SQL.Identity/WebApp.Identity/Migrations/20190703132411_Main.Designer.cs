@@ -10,8 +10,8 @@ using WebApp.Identity;
 namespace WebApp.Identity.Migrations
 {
     [DbContext(typeof(MyUserDbContext))]
-    [Migration("20190702153612_Index")]
-    partial class Index
+    [Migration("20190703132411_Main")]
+    partial class Main
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
